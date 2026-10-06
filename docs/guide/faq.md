@@ -20,17 +20,13 @@ catbus 的能力来自 [cv-cat](https://github.com/cv-cat) 的 10 个开源仓�
 
 CI 在这 8 个目标上跑安装和冒烟测试。原生依赖（HTTP 库、`@napi-rs/canvas`）都带预编译包，安装时不需要编译。
 
-### 怎么安装？npm 上搜不到 catbus-cli
-
-npm 包还没有发布（即将发布）。现在请从源码安装：
+### 怎么安装？
 
 ```bash
-git clone https://github.com/cv-cat/catbus.git
-cd catbus
-npm ci && npm run assets:jd && npm run assets:ocr && npm run build && npm link
+npm i -g catbus-cli
 ```
 
-发布后用 `npm i -g catbus-cli` 安装。npm 上的 `catbus` 是别人的库，不是这个项目。
+主包叫 `catbus-cli`，npm 上的 `catbus` 是别人的库，不是这个项目。想改代码或跟进 `master` 时从源码安装，步骤见 [快速上手](quick-start.md#1-安装)。
 
 ### 模型包为什么这么大？
 

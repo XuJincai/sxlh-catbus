@@ -11,6 +11,7 @@
 
 <br>
 
+[![npm](https://img.shields.io/npm/v/catbus-cli?style=for-the-badge&logo=npm&color=CB3837)](https://www.npmjs.com/package/catbus-cli)
 [![License: MIT](https://img.shields.io/badge/license-MIT-A6E3A1?style=for-the-badge)](LICENSE)
 [![Node](https://img.shields.io/badge/node-22%20%7C%2024%20%7C%2026-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](package.json)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](tsconfig.json)
@@ -135,15 +136,14 @@ npx skills add cv-cat/catbus
 ## ⚡ 30 秒で乗車
 
 ```bash
-git clone https://github.com/cv-cat/catbus.git && cd catbus
-npm ci && npm run assets:jd && npm run assets:ocr && npm run build && npm link
+npm i -g catbus-cli
 
 catbus doctor                 # 環境をチェック
 catbus bilibili auth login    # QR コードでログイン
 catbus bilibili item search 猫 --limit 20
 ```
 
-[Docker](docs/guide/docker.md) でも使えます。npm パッケージ `catbus-cli` もまもなく公開予定です。詳しい手順は [クイックスタート](docs/guide/quick-start.md) をご覧ください。
+[Docker](docs/guide/docker.md) やソースからのインストールも可能です。詳しい手順は [クイックスタート](docs/guide/quick-start.md) をご覧ください。
 
 ## 📚 ドキュメント
 

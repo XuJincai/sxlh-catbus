@@ -11,6 +11,7 @@ RedNote (Xiaohongshu) · Douyin · TikTok · Bilibili · Kuaishou · Weibo · Xi
 
 <br>
 
+[![npm](https://img.shields.io/npm/v/catbus-cli?style=for-the-badge&logo=npm&color=CB3837)](https://www.npmjs.com/package/catbus-cli)
 [![License: MIT](https://img.shields.io/badge/license-MIT-A6E3A1?style=for-the-badge)](LICENSE)
 [![Node](https://img.shields.io/badge/node-22%20%7C%2024%20%7C%2026-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](package.json)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](tsconfig.json)
@@ -135,15 +136,14 @@ The skill loads on demand: a one-page overview, plus [sub-files](.claude/skills/
 ## ⚡ On board in 30 seconds
 
 ```bash
-git clone https://github.com/cv-cat/catbus.git && cd catbus
-npm ci && npm run assets:jd && npm run assets:ocr && npm run build && npm link
+npm i -g catbus-cli
 
 catbus doctor                 # check your environment
 catbus bilibili auth login    # log in by scanning a QR code
 catbus bilibili item search 猫 --limit 20
 ```
 
-You can also use [Docker](docs/guide/docker.md); the npm package `catbus-cli` is coming soon. See [Quick start](docs/guide/quick-start.md) for the full steps.
+You can also use [Docker](docs/guide/docker.md) or install from source; see [Quick start](docs/guide/quick-start.md) for the full steps.
 
 ## 📚 Documentation
 

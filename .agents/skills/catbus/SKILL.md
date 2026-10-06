@@ -7,7 +7,7 @@ description: 用 catbus CLI 读取或操作小红书（RedNote）、抖音、Tik
 
 catbus（猫巴士）是一个命令行工具，用**同一套命令、同一种 JSON** 调用 10 个平台的 web 端接口。stdout 只有 JSON，日志、提示、二维码都在 stderr。
 
-先确认它能用：`catbus version`、`catbus doctor`。找不到 `catbus` 命令时告诉用户安装（`npm i -g catbus-cli`），不要自己去装。
+先确认它能用：`catbus version`、`catbus doctor`。找不到 `catbus` 命令时告诉用户安装（npm 包 `catbus-cli`，或从源码 `npm link`），不要自己去装。
 
 ## 按任务读对应的文件
 

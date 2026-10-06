@@ -7,7 +7,7 @@
 | 0.1.x | 是 |
 | < 0.1 | 否 |
 
-catbus 目前处于 0.1.x。npm 包 `catbus-cli` 即将发布，在此之前从源码安装的用户请跟随 `master` 分支的最新提交。
+catbus 目前处于 0.1.x，安全修复只发布在最新版本里：请用 `npm i -g catbus-cli@latest` 升级；从源码安装的用户请跟随 `master` 分支的最新提交。
 
 ## 报告漏洞
 

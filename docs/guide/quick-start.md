@@ -6,7 +6,15 @@
 
 需要 Node `^22.22.2 || ^24.15.0 || >=26.0.0`。不需要 Python、编译器或其他系统依赖，支持 Windows、macOS、Linux 的 x64 与 arm64（Linux 含 glibc 和 musl）。
 
-**从源码安装（现在）**：
+**从 npm 安装**：
+
+```bash
+npm i -g catbus-cli
+```
+
+模型包 `@cv-cat/catbus-assets-jd`、`@cv-cat/catbus-assets-ocr` 会作为依赖一起装上，装完即可离线使用。
+
+**从源码安装**（想改代码或跟进 `master` 时）：
 
 ```bash
 git clone https://github.com/cv-cat/catbus.git
@@ -19,14 +27,6 @@ npm link              # 把 catbus 命令链接到全局
 ```
 
 两个模型包的模型文件不进 git，`npm ci` 之后要用上面两条命令取回，否则 `catbus doctor` 会报模型文件缺失。只用不到京东和 B 站验证码的平台时可以先跳过，但建议都装上。
-
-**从 npm 安装（即将发布）**：
-
-```bash
-npm i -g catbus-cli
-```
-
-npm 包发布后，模型包 `@cv-cat/catbus-assets-jd`、`@cv-cat/catbus-assets-ocr` 会作为依赖一起装上，装完即可离线使用。
 
 ## 2. 检查环境
 

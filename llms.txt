@@ -14,7 +14,14 @@
 
 Requires Node `^22.22.2 || ^24.15.0 || >=26.0.0`. No Python or compiler needed. Supported: win32 / darwin / linux, x64 / arm64 (glibc and musl).
 
-From source (current):
+From npm:
+
+```bash
+npm i -g catbus-cli
+catbus doctor
+```
+
+From source:
 
 ```bash
 git clone https://github.com/cv-cat/catbus.git
@@ -25,8 +32,6 @@ npm run build
 npm link
 catbus doctor
 ```
-
-From npm (not yet published; coming soon): `npm i -g catbus-cli`
 
 ## Command syntax
 
