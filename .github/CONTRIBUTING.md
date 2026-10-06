@@ -68,6 +68,7 @@ catbus/
 ├── scripts/
 │   ├── golden/                     # 调用上游 Python 生成对拍数据
 │   ├── smoke.mjs                   # CI 冒烟测试
+│   ├── release-notes.mjs           # 从 CHANGELOG 生成 GitHub Release 的说明
 │   └── fetch-*-models.mjs          # 取回模型
 ├── tests/                          # vitest；golden/<p>/ 放对拍数据，e2e/ 放在线测试
 └── references/                     # 上游仓库的只读副本，不进版本控制

@@ -170,10 +170,12 @@ describe('docs/capabilities.md', () => {
 })
 
 describe('package.json', () => {
-  it('精确钉住 @cv-cat/catbus-assets-jd 的版本（AGENTS 7.2）', () => {
+  it('精确钉住两个模型包的版本（AGENTS 7.2）', () => {
     const read = (p: string) => JSON.parse(readFileSync(new URL(p, import.meta.url), 'utf8'))
     const main = read('../package.json')
-    const assets = read('../packages/assets-jd/package.json')
-    expect(main.dependencies[assets.name]).toBe(assets.version)
+    for (const dir of ['assets-jd', 'assets-ocr']) {
+      const assets = read(`../packages/${dir}/package.json`)
+      expect(main.dependencies[assets.name], assets.name).toBe(assets.version)
+    }
   })
 })

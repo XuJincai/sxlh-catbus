@@ -249,7 +249,7 @@ npm run test:e2e -- -t '^x '        # X 的平台 id 太短，-t x 会连 xhs、
 
 ### 4.1 CI 做了什么
 
-[.github/workflows/ci.yml](workflows/ci.yml) 在推送到 `master`、提交 PR 时触发；推送 `v*` tag 时，[release.yml](workflows/release.yml) 也会先调用它跑完整 CI，再发布 CI 里打好、测过的同一份 tarball。
+[.github/workflows/ci.yml](workflows/ci.yml) 在推送到 `master`、提交 PR 时触发；推送 `v*` tag 时，[release.yml](workflows/release.yml) 也会先调用它跑完整 CI，再发布 CI 里打好、测过的同一份 tarball，并从 CHANGELOG 生成 GitHub Release（发版步骤见 [AGENTS.md 7.2](../AGENTS.md#72-打包与分发)）。
 
 | job | 环境 | 步骤 |
 |---|---|---|

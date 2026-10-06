@@ -754,9 +754,12 @@ stdout 只输出结果。日志、提示、进度、二维码一律输出到 std
   - darwin-arm64、darwin-x64；
   - linux-x64、linux-arm64，glibc 和 musl 都要支持。
 - CI 在全部目标系统上跑冒烟测试，musl 用 Alpine。**任何一个目标系统缺预编译包的依赖都不能用。**
-- 发布：推送 `v*` tag 触发 `.github/workflows/release.yml`，先跑完整 CI，再发布 CI 里测过的同一份 tarball。
-  - 顺序：先发 assets-jd、assets-ocr（该版本还没发布时），再发 `catbus-cli`。
-  - 需要仓库 secret `NPM_TOKEN`（有发布权限的 npm token）；在 npm 上配好 trusted publishing 后可以改用 OIDC。
+- 发布：
+  1. 改 `package.json` 的版本号。模型变了时同时改 `packages/assets-*/package.json` 的版本，并把主包里钉住的依赖改成同一个版本（测试会检查）。
+  2. 在 `CHANGELOG.md` 写好 `## [<版本>] - <日期>` 一节。
+  3. 推送 `v<版本>` tag，触发 `.github/workflows/release.yml`：先检查 tag 与版本号一致、CHANGELOG 里有这个版本；跑完整 CI；发布 CI 里测过的同一份 tarball；最后用 `scripts/release-notes.mjs` 从 CHANGELOG 生成 GitHub Release。
+  - 顺序：先发 assets-jd、assets-ocr，再发 `catbus-cli`。已经在 npm 上的版本跳过，失败后重跑不会重复发布。
+  - 认证：npm 上给三个包配了 trusted publishing（GitHub Actions，`cv-cat/catbus`，`release.yml`，允许 `npm publish`）时走 OIDC，否则用仓库 secret `NPM_TOKEN`。trusted publishing 配好后两天内要成功发布一次，否则失效。
   - 仓库公开时发布带 `--provenance`，私有时不带（npm 只给公开仓库生成 provenance），由 release.yml 按仓库可见性自动判断。
 - **Docker 镜像**（可选）：`Dockerfile` 走与 npm 发布相同的路径，先打出三个包，再在 `node:<版本>-bookworm-slim` 里全局安装这三个 tarball；`CATBUS_HOME=/data`（卷），工作目录 `/work`；默认以 root 运行（挂进来的目录都能写），Linux 上可以 `--user "$(id -u):$(id -g)"` 配合挂自己的数据目录。`compose.yaml` 提供 `catbus`（一次性命令）和 `live-listen`（长时间监听直播）两个服务。CI 的 `.github/workflows/docker.yml` 在 x64 与 arm64 上构建并跑 `version` / `doctor`，不推送到任何镜像仓库。
 - 以后要提供 SDK 时，通过 `package.json` 的 `exports` 暴露，现在不做。
