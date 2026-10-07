@@ -28,6 +28,23 @@
 
 > 每个平台都有自己的一套接口、签名、登录方式和数据格式。**catbus 把它们装进同一辆车**：同一套命令、同一种 JSON、同一个登录态目录。换平台，只需要换一个词。
 
+## ❤️ Sponsor
+
+<div align="center">
+
+<a href="https://api.openai-next.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/vectrust-dark.png">
+    <img src="assets/sponsors/vectrust.png" alt="Vectrust" height="72">
+  </picture>
+</a>
+
+**Sponsored by [Vectrust](https://api.openai-next.com) @ OpenDev Org & NextRouter Alliance**
+
+<sub>[想出现在这里？](mailto:992822653@qq.com)</sub>
+
+</div>
+
 ## ✨ catbus 是什么
 
 catbus（猫巴士）是一个命令行工具，用**统一的语法**调用 10 个中外主流平台的 web 端能力：搜索、详情、评论、用户、推荐流、下载、发布、私信、直播弹幕……

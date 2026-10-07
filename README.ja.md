@@ -28,6 +28,23 @@
 
 > プラットフォームごとに、API も署名方式も、ログイン方法もデータ形式もバラバラ。**catbus はそれらをまとめて 1 台のバスに乗せます**。同じコマンド、同じ JSON、同じログイン情報ディレクトリ。プラットフォームを乗り換えるときは、単語をひとつ変えるだけです。
 
+## ❤️ Sponsor
+
+<div align="center">
+
+<a href="https://api.openai-next.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/vectrust-dark.png">
+    <img src="assets/sponsors/vectrust.png" alt="Vectrust" height="72">
+  </picture>
+</a>
+
+**Sponsored by [Vectrust](https://api.openai-next.com) @ OpenDev Org & NextRouter Alliance**
+
+<sub>[ここに掲載しませんか？](mailto:992822653@qq.com)</sub>
+
+</div>
+
 ## ✨ catbus とは
 
 catbus（猫巴士）は、中国内外の主要 10 プラットフォームの web エンドポイントを**統一された構文**で操作できるコマンドラインツールです。検索、詳細、コメント、ユーザー、おすすめフィード、ダウンロード、投稿、DM、ライブ配信の弾幕コメント……。

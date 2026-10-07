@@ -28,6 +28,23 @@ RedNote (Xiaohongshu) · Douyin · TikTok · Bilibili · Kuaishou · Weibo · Xi
 
 > Every platform has its own APIs, its own request signing, its own login flow and its own data format. **catbus puts them all on one bus**: one set of commands, one JSON shape, one home for your logins. To switch platforms, you change a single word.
 
+## ❤️ Sponsor
+
+<div align="center">
+
+<a href="https://api.openai-next.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/vectrust-dark.png">
+    <img src="assets/sponsors/vectrust.png" alt="Vectrust" height="72">
+  </picture>
+</a>
+
+**Sponsored by [Vectrust](https://api.openai-next.com) @ OpenDev Org & NextRouter Alliance**
+
+<sub>[Want to appear here?](mailto:992822653@qq.com)</sub>
+
+</div>
+
 ## ✨ What is catbus
 
 catbus (猫巴士) is a command-line tool that drives the web endpoints of 10 major Chinese and global platforms through **one unified syntax**: search, details, comments, users, feeds, downloads, publishing, direct messages, live-stream chat and more.
