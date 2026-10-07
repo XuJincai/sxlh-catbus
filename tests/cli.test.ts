@@ -170,7 +170,13 @@ describe('命令判定', () => {
     const hot = await cli('xhs', 'feed', 'list', '--kind', 'hot')
     expect(hot.env.error.code).toBe('UNSUPPORTED')
     expect(hot.env.error.hint).toBe('可选：recommend、following')
-    expect((await cli('xhs', 'feed', 'list', '--kind', 'nope')).env.error.code).toBe('USAGE')
+    const nope = await cli('xhs', 'feed', 'list', '--kind', 'nope')
+    expect(nope.env.error.code).toBe('USAGE')
+    // USAGE 的 hint 同样只列本平台支持的取值，不列词表全集（hot 是标准值，但 xhs 不支持）
+    expect(nope.env.error.hint).toBe('可选：recommend、following')
+    expect((await cli('xhs', 'item', 'search', 'kw', '--sort', 'hottest')).env.error).toMatchObject({
+      code: 'USAGE', hint: '可选：general、latest、popular、comments、collects',
+    })
     // 取值通过校验后进入身份检查：web 端不支持游客，需要登录
     expect((await cli('xhs', 'feed', 'list', '--kind', 'following')).env.error.code).toBe('AUTH_REQUIRED')
   })

@@ -280,10 +280,11 @@ function validate(platform: Platform, command: Command, words: string[], given: 
     if (!standard) continue
     const value = String(given[key])
     const flag = `--${flagName(key)}`
-    if (!standard.includes(value)) {
-      throw new CatbusError('USAGE', `${flag} 的取值不对：${value}`, { hint: `可选：${standard.join('、')}` })
-    }
+    // 两种错误的 hint 都只列本平台支持的取值，照着 hint 改不会再撞 UNSUPPORTED
     const supported = describeOption(command.options[key]!).values ?? standard
+    if (!standard.includes(value)) {
+      throw new CatbusError('USAGE', `${flag} 的取值不对：${value}`, { hint: `可选：${supported.join('、')}` })
+    }
     if (!supported.includes(value)) {
       throw new CatbusError('UNSUPPORTED', `${p} 的 ${command.key} 不支持 ${flag} ${value}`, { hint: `可选：${supported.join('、')}` })
     }
