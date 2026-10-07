@@ -84,10 +84,12 @@ case('video_detail', logged(lambda a: BiliApi.get_video_detail(a, bvid=BVID)), b
 case('user_info', logged(lambda a: BiliApi.get_user_info(a, '2')), mid='2')
 case('user_videos', logged(lambda a: BiliApi.get_user_videos(a, '2', page=3, order='click')), mid='2', page=3, order='click')
 case('user_videos_keyword', logged(lambda a: BiliApi.get_user_videos(a, '2', keyword='教程 入门')), mid='2', keyword='教程 入门')
+# 翻页游标：上一页的 data.cursor.pagination_reply.next_offset（假值，带 + / = 以覆盖 URL 编码）
+REPLY_OFFSET = 'CAESEGZha2U+b2Zmc2V0/zE9IgIIAQ=='
 case('replies_p1', logged(lambda a: BiliApi.get_replies(a, 80433022)), oid=80433022, page=1)
-case('replies_p2', logged(lambda a: BiliApi.get_replies(a, 80433022, page=2)), oid=80433022, page=2)
+case('replies_p2', logged(lambda a: BiliApi.get_replies(a, 80433022, offset=REPLY_OFFSET)), oid=80433022, offset=REPLY_OFFSET)
 case('replies_article_latest', logged(lambda a: BiliApi.get_replies(a, 12345, type_=12, mode=2)), oid=12345, type=12, mode=2)
-case('replies_dynamic_p2', logged(lambda a: BiliApi.get_replies(a, '987654321098765432', type_=17, page=2)), oid='987654321098765432', type=17, page=2)
+case('replies_dynamic_p2', logged(lambda a: BiliApi.get_replies(a, '987654321098765432', type_=17, offset=REPLY_OFFSET)), oid='987654321098765432', type=17, offset=REPLY_OFFSET)
 case('rcmd_feed', logged(lambda a: BiliApi.get_rcmd_feed(a, fresh_idx=2)), fresh_idx=2)
 case('rcmd_feed_showlist', logged(lambda a: BiliApi.get_rcmd_feed(a, fresh_idx=3, last_showlist='av_113,av_114')), fresh_idx=3, last_showlist='av_113,av_114')
 case('popular', logged(lambda a: BiliApi.get_popular(a, page=3)), page=3)

@@ -48,6 +48,9 @@ async function logged<T>(fn: (b: Bili) => Promise<T>, withMixin = true): Promise
   return fn(b)
 }
 
+/** 评论翻页游标（假值，与 scripts/golden/bilibili/gen.py 的 REPLY_OFFSET 相同） */
+const REPLY_OFFSET = 'CAESEGZha2U+b2Zmc2V0/zE9IgIIAQ=='
+
 /** 用例名 → TS 侧的等价调用。 */
 const CASES: Record<string, () => Promise<unknown>> = {
   search_video: () => logged((b) => api.searchType(b, '编程 入门', 'click', 2, 'video')),
@@ -59,9 +62,9 @@ const CASES: Record<string, () => Promise<unknown>> = {
   user_videos: () => logged((b) => api.userVideos(b, '2', 3, 42, 'click')),
   user_videos_keyword: () => logged((b) => api.userVideos(b, '2', 1, 42, 'pubdate', '教程 入门')),
   replies_p1: () => logged((b) => api.replies(b, 80433022)),
-  replies_p2: () => logged((b) => api.replies(b, 80433022, 1, 2)),
-  replies_article_latest: () => logged((b) => api.replies(b, 12345, 12, 1, 2)),
-  replies_dynamic_p2: () => logged((b) => api.replies(b, '987654321098765432', 17, 2)),
+  replies_p2: () => logged((b) => api.replies(b, 80433022, 1, REPLY_OFFSET)),
+  replies_article_latest: () => logged((b) => api.replies(b, 12345, 12, '', 2)),
+  replies_dynamic_p2: () => logged((b) => api.replies(b, '987654321098765432', 17, REPLY_OFFSET)),
   rcmd_feed: () => logged((b) => api.rcmdFeed(b, 2)),
   rcmd_feed_showlist: () => logged((b) => api.rcmdFeed(b, 3, 12, 'av_113,av_114')),
   popular: () => logged((b) => api.popular(b, 3)),
@@ -292,6 +295,30 @@ describe('bilibili 命令：本次补齐的能力', () => {
     )
     expect(urls[0]).toContain('/x/v2/reply/wbi/main?oid=12345&type=12&mode=2&')
     expect(result.data[0]).toMatchObject({ id: '1', item_id: 'cv12345', text: 'hi' })
+  })
+
+  it('comment list 翻页：游标是 next_offset~页序号，next_offset 不变也照样往下翻', async () => {
+    const item = 'https://www.bilibili.com/read/cv12345'
+    const reply = (rpid: number) => ({ rpid, content: { message: `c${rpid}` }, member: { mid: 2, uname: 'u' } })
+    const offsetOf = (url: string) => JSON.parse(new URL(url).searchParams.get('pagination_str')!).offset
+    const p1 = await runCommand('commentList', { args: { item } }, () =>
+      ok({ top_replies: [reply(9)], replies: [reply(1)], cursor: { is_end: false, next: 0, pagination_reply: { next_offset: 'OFF1' } } }),
+    )
+    expect(offsetOf(p1.urls[0]!)).toBe('')
+    expect(p1.urls[0]).not.toContain('next=')
+    expect(p1.result.data.map((c: any) => c.id)).toEqual(['9', '1'])
+    expect(p1.result.page).toEqual({ cursor: 'OFF1~1', has_more: true })
+    // 热门评论的进度记在服务端：next_offset 原样返回时，页序号照样前进，core 不会当成游标没变而停下
+    const p2 = await runCommand('commentList', { args: { item }, cursor: 'OFF1~1' }, () =>
+      ok({ top_replies: [reply(9)], replies: [reply(2)], cursor: { is_end: false, pagination_reply: { next_offset: 'OFF1' } } }),
+    )
+    expect(offsetOf(p2.urls[0]!)).toBe('OFF1')
+    expect(p2.result.data.map((c: any) => c.id)).toEqual(['2'])
+    expect(p2.result.page).toEqual({ cursor: 'OFF1~2', has_more: true })
+    const end = await runCommand('commentList', { args: { item }, cursor: 'OFF1~2' }, () =>
+      ok({ replies: [reply(3)], cursor: { is_end: true, pagination_reply: { next_offset: 'OFF2' } } }),
+    )
+    expect(end.result.page.has_more).toBe(false)
   })
 
   it('comment add --reply-to --root：root 与 parent 分开', async () => {

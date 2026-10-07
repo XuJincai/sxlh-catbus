@@ -397,11 +397,16 @@ async function onReplies<T>(t: ReplyTarget, run: () => Promise<T>): Promise<T> {
 export async function commentList(ctx: Ctx) {
   const b = await bili(ctx)
   const t = await resolveReplyTarget(b, ctx.args.item!)
-  const p = page(ctx)
-  const d = await onReplies(t, () => api.replies(b, t.oid, t.type, p, REPLY_MODE[(ctx.options.sort as string) ?? 'popular'] ?? 3))
-  const list = [...(p === 1 ? (d.top_replies ?? []) : []), ...(d.replies ?? [])].map((r: any) => norm.reply(r, t.itemId))
-  if (t.type === 17 && p === 1 && !list.length) ctx.log.info(`动态 ${t.oid} 的评论区是空的。${DYNAMIC_REPLY_HINT}`)
-  return paged(list, p + 1, !d.cursor?.is_end && list.length > 0)
+  // 游标是 `<上一页的 cursor.pagination_reply.next_offset>~<页序号>`，首页为空（见 api.replies）。
+  // 热门评论的 next_offset 常常连着几页不变（进度记在服务端的 session 里，同一个 offset 再请求就是下一页），
+  // 带上页序号，免得 core 把它当成游标没变而停止翻页
+  const [offset = '', seq = '0'] = (ctx.cursor ?? '').split('~')
+  const first = offset === ''
+  const d = await onReplies(t, () => api.replies(b, t.oid, t.type, offset, REPLY_MODE[(ctx.options.sort as string) ?? 'popular'] ?? 3))
+  const list = [...(first ? (d.top_replies ?? []) : []), ...(d.replies ?? [])].map((r: any) => norm.reply(r, t.itemId))
+  if (t.type === 17 && first && !list.length) ctx.log.info(`动态 ${t.oid} 的评论区是空的。${DYNAMIC_REPLY_HINT}`)
+  const next: string | undefined = d.cursor?.pagination_reply?.next_offset || undefined
+  return paged(list, next && `${next}~${Number(seq) + 1}`, !d.cursor?.is_end && list.length > 0 && next != null)
 }
 
 /** 回复楼中楼：--root 给根评论、--reply-to 给被回复的那条；只给 --reply-to 时它就是根评论（上游 add_reply 的 root / parent）。 */

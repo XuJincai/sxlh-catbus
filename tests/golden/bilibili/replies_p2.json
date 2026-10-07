@@ -1,14 +1,14 @@
 {
   "input": {
     "oid": 80433022,
-    "page": 2
+    "offset": "CAESEGZha2U+b2Zmc2V0/zE9IgIIAQ=="
   },
   "seed": 20260927,
   "now": 1790000000123,
   "requests": [
     {
       "method": "GET",
-      "url": "https://api.bilibili.com/x/v2/reply/wbi/main?oid=80433022&type=1&mode=3&pagination_str=%7B%22offset%22%3A%22%22%7D&plat=1&seek_rpid=&next=2&web_location=1315875&w_rid=4f1a438113277f4bcc6e9d25dd966fd9&wts=1790000000",
+      "url": "https://api.bilibili.com/x/v2/reply/wbi/main?oid=80433022&type=1&mode=3&pagination_str=%7B%22offset%22%3A%22CAESEGZha2U%2Bb2Zmc2V0%2FzE9IgIIAQ%3D%3D%22%7D&plat=1&seek_rpid=&web_location=1315875&w_rid=db97d94dccc10c06824caff9e233ae7c&wts=1790000000",
       "headers": [
         [
           "sec-ch-ua",

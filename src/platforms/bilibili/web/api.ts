@@ -1,6 +1,6 @@
 import { CatbusError } from '../../../core/errors.js'
 import { type MultipartPart } from '../../../core/http.js'
-import { compactJson, type Pairs, quote } from '../../../core/py.js'
+import { compactJson, jsonDumps, type Pairs, quote } from '../../../core/py.js'
 import * as rand from '../../../core/rand.js'
 import type { Bili } from './client.js'
 import { API, headers, LIVE_API, MEMBER, ORIGIN, PASSPORT, PROFILE } from './profile.js'
@@ -126,18 +126,21 @@ export async function danmakuSeg(b: Bili, aid: string | number, cid: string | nu
   return b.bytes({ url: `${API}/x/v2/dm/wbi/web/seg.so`, headers: h.get(), query: await b.wbi(params) })
 }
 
-/** 评论区：type 1 视频（oid 为 aid）、12 专栏（cv 号）、17 动态（动态 ID）；mode 3 热门、2 时间。 */
-export async function replies(b: Bili, oid: string | number, type = 1, page = 1, mode = 3) {
+/**
+ * 评论区：type 1 视频（oid 为 aid）、12 专栏（cv 号）、17 动态（动态 ID）；mode 3 热门、2 时间。
+ * offset 是翻页游标：首页传空串，下一页传上一页响应的 cursor.pagination_reply.next_offset。
+ * 旧的页码参数 next 服务端已经不认（cursor.next 恒为 0），只靠它翻页会一直拿到首页。上游 get_replies。
+ */
+export async function replies(b: Bili, oid: string | number, type = 1, offset = '', mode = 3) {
   const h = headers('GET').referer(`${MAIN}/`)
   const params: Pairs = [
     ['oid', oid],
     ['type', type],
     ['mode', mode],
-    ['pagination_str', '{"offset":""}'],
+    ['pagination_str', jsonDumps({ offset }, { separators: [',', ':'] })],
     ['plat', 1],
     ['seek_rpid', ''],
   ]
-  if (page > 1) params.push(['next', page])
   return b.get(`${API}/x/v2/reply/wbi/main`, { headers: h.get(), query: await b.wbi(withLocation(params, '1315875')) })
 }
 
