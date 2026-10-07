@@ -80,7 +80,7 @@ catbus/
 
 ```bash
 git clone https://github.com/cv-cat/BilibiliApis references/BilibiliApis
-git -C references/BilibiliApis checkout 7d80150893b429651deee76929af760ea642b844   # 取自 src/platforms/bilibili/UPSTREAM
+git -C references/BilibiliApis checkout 0234d8188b40314d011358d60424bb88fd291a1f   # 取自 src/platforms/bilibili/UPSTREAM
 ```
 
 规则（AGENTS 3、8）：

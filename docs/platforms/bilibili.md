@@ -6,7 +6,7 @@
 | 别名 | `bili`、`b` |
 | `item` 指 | 稿件（视频投稿） |
 | 上游仓库 | [cv-cat/BilibiliApis](https://github.com/cv-cat/BilibiliApis) |
-| 移植基线 | `fix/reply-pagination-offset` 分支的 [`ed56111`](https://github.com/cv-cat/BilibiliApis/commit/ed561115f31ec80abfef10dd681540703695c2c8)（[cv-cat/BilibiliApis#6](https://github.com/cv-cat/BilibiliApis/pull/6)，还没合进上游 master），记录在 [`src/platforms/bilibili/UPSTREAM`](../../src/platforms/bilibili/UPSTREAM) |
+| 移植基线 | master 上的 [`0234d81`](https://github.com/cv-cat/BilibiliApis/commit/0234d8188b40314d011358d60424bb88fd291a1f)，记录在 [`src/platforms/bilibili/UPSTREAM`](../../src/platforms/bilibili/UPSTREAM) |
 | 端 | web ✓ · app ○ 规划中 · pc ○ 规划中 |
 | 命令（web） | 已实现 48 条（✓ 41 · ◐ 7），规划中 ○ 30 条 |
 
