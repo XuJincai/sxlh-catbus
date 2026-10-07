@@ -1,2 +1,3 @@
 repo: https://github.com/cv-cat/BilibiliApis
-commit: 7d80150893b429651deee76929af760ea642b844
+commit: ed561115f31ec80abfef10dd681540703695c2c8
+branch: TIANQIAN1238:fix/reply-pagination-offset
